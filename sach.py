@@ -1,0 +1,77 @@
+import mysql.connector
+import requests
+import json
+
+
+response = requests.get('http://glsindia-dev.cisco.com:3838/data/output.json')
+print(type(response))
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="sachin123",
+  database="casesdb"
+)
+mycursor = mydb.cursor()
+data = response.json()
+print(type(data))
+cases = data['cases']
+print(type(cases))
+# print(cases)
+for row in cases:
+#   sql = "INSERT INTO mytable(casesid)"
+#     print(row)
+#   values = []
+#   print(type(values))
+    count = 0
+    for key,value in row.items():
+#     if(isinstance(value,list) ):
+        if count > 5:
+            break
+        print(key)
+        print(value)
+        count += 1
+#       if(len(value)>0):
+#         values.append(value[0])
+#       else:
+#         values.append("NULL")
+#
+#     elif(value is None):
+#       values.append("NULL")
+#     else:
+#       values.append(value)
+  #val
+  # values = tuple(values)
+  # sql = sql + "VALUES " + str(values)
+  # #print(sql)
+  # mycursor.execute(sql)
+
+
+
+
+
+#print(cases)
+
+# for i in data['cases']:
+#   print(data[i])
+
+#print(type(data))
+#case_data = data['cases']
+#print(case_data)
+
+# for i in case_data:
+#   print(case_data[0])
+
+# sql = "INSERT INTO mytable(casesid,casescreated_at,casesaction_id,casesbuilding_id,casesrelated_kase,casestype,casesurgency,casesurgency_justification,casesimpact,casesimpact_justification,casesorg_id,casessynopsis,casesopener_id,casesrequester_id,casesstatus,casesclosed_at,casesreopened_count,casesassignee_id,casesduplicate_kase_id,caseslatest_updater_id,casesresolved_at,caseslatest_updated_at,caseslocation_in_lab,caseslab_space_id,casesrelated_remedy_kase_ids,casesinterested_parties0,casesbusiness_group_id,casesonsite_approval,casesworkflow_id,casesopener_userid,casesrequester_userid,casesassignee_userid,caseslatest_updater_userid,casesaction,casesbusiness_group,casesbuilding_name,casesmetro_name,casesorg_name,casesapproval_manager_id,casesbond_number,casesisecure_hyperlink,caseskase_participant_ids,caseslab_contact_id,caseslab_manager_contact_id,casespurchase_request_numbers,casescimc_management_ip_or_url,caseshostname,casesip_address,casesmac_address_of_primary_interface,casesmanufacturer_and_model,casesrom_drive_present_on_host,casesserial_number,casesexpected_delivery_date,casesowner_id,casesreceiver_id,casesinterested_parties1,casesinterested_parties2,casesinterested_parties3,caseskase_virtual_machines0alert_notification_alias,caseskase_virtual_machines0configuration,caseskase_virtual_machines0cost,caseskase_virtual_machines0created_at,caseskase_virtual_machines0l2_connection_required,caseskase_virtual_machines0metro_id,caseskase_virtual_machines0name,caseskase_virtual_machines0os_profile,caseskase_virtual_machines0primary_purpose,caseskase_virtual_machines0rollback_service_required,caseskase_virtual_machines0secondary_storage,caseskase_virtual_machines0updated_at,caseskase_virtual_machines0virtual_center_id,caseskase_virtual_machines0virtual_machine_id,caseskase_virtual_machinealert_notification_alias,caseskase_virtual_machineconfiguration,caseskase_virtual_machinecost,caseskase_virtual_machinecreated_at,caseskase_virtual_machinel2_connection_required,caseskase_virtual_machinemetro_id,caseskase_virtual_machinename,caseskase_virtual_machineos_profile,caseskase_virtual_machineprimary_purpose,caseskase_virtual_machinerollback_service_required,caseskase_virtual_machinesecondary_storage,caseskase_virtual_machineupdated_at,caseskase_virtual_machinevirtual_center_id,caseskase_virtual_machinevirtual_machine_id,casesvm_name,casesfrom_lab_space_id,casesfrom_location_in_lab,casesreceiving_department_id,casesserial_ams_model_number,casesto_lab_space_id,casesto_location_in_lab,casestype_and_num_of_moving_items,casesconsole_address,casesbill_to_dept_num,casescontact_phone_number,casescountry_of_origin,casesestimated_cost,casespart_numbers,casesserial_numbers,casesshipping_address,casesaccess_key,casesban,casesccw_shared_configuration_id,casesjustification,casesnew_supplier_name,casesproject_code,casespurchasing_department_number,casessupplier,caseshostnames_or_ips_impacted,casesconsole_ip,casesdevice_id,casesdevice_ip,casestestbed_name,casesexpected_kase_type,casescimc_admin_password,casescimc_ip_address,casescluster_name,casesucsm_admin_password,casesucsm_ip_address,casesoutlet_type,casesinterested_parties4,casesinterested_parties5,casesinterested_parties6,casesinterested_parties7,casesdevice_identifier,casesmac_addresses_with_image_names0,casesapproved_highwater_cost,casesdepartment_id,casesdevices0serial_number,casesdevices0device_identifier,casesdevices0interfaces0mac_address,casesdevices0interfaces0image_name,casesdevices0interfaces1mac_address,casesdevices0interfaces1image_name,casesdevices0interfaces2mac_address,casesdevices0interfaces2image_name,casesdevices0interfaces3mac_address,casesdevices0interfaces3image_name,casestotal_quarterly_cost,caseslocation,casesnew_vm_department_number,casesnew_vm_owner_id,casesadd_hostnames_to_a_netgroup,casesceiling_drop_and_jack_color,caseshostnames,casesnumber_of_ip_addresses_required,casesoperating_system,casestype_and_number_of_items,casesnumber_of_racks,casesdestination_ip_address_port_protocol,casesnumber_of_public_ip_addresses,casespublic_ip_address,casesrack_identification,casessource_ip_address_port_protocol,casesos_version,caseskase_virtual_machines1alert_notification_alias,caseskase_virtual_machines1configuration,caseskase_virtual_machines1cost,caseskase_virtual_machines1created_at,caseskase_virtual_machines1l2_connection_required,caseskase_virtual_machines1metro_id,caseskase_virtual_machines1name,caseskase_virtual_machines1os_profile,caseskase_virtual_machines1primary_purpose,caseskase_virtual_machines1rollback_service_required,caseskase_virtual_machines1secondary_storage,caseskase_virtual_machines1updated_at,caseskase_virtual_machines1virtual_center_id,caseskase_virtual_machines1virtual_machine_id,caseskase_virtual_machines2alert_notification_alias,caseskase_virtual_machines2configuration,caseskase_virtual_machines2cost,caseskase_virtual_machines2created_at,caseskase_virtual_machines2l2_connection_required,caseskase_virtual_machines2metro_id,caseskase_virtual_machines2name,caseskase_virtual_machines2os_profile,caseskase_virtual_machines2primary_purpose,caseskase_virtual_machines2rollback_service_required,caseskase_virtual_machines2secondary_storage,caseskase_virtual_machines2updated_at,caseskase_virtual_machines2virtual_center_id,caseskase_virtual_machines2virtual_machine_id,caseskase_virtual_machines3alert_notification_alias,caseskase_virtual_machines3configuration,caseskase_virtual_machines3cost,caseskase_virtual_machines3created_at,caseskase_virtual_machines3l2_connection_required,caseskase_virtual_machines3metro_id,caseskase_virtual_machines3name,caseskase_virtual_machines3os_profile,caseskase_virtual_machines3primary_purpose,caseskase_virtual_machines3rollback_service_required,caseskase_virtual_machines3secondary_storage,caseskase_virtual_machines3updated_at,caseskase_virtual_machines3virtual_center_id,caseskase_virtual_machines3virtual_machine_id,caseskase_virtual_machines4alert_notification_alias,caseskase_virtual_machines4configuration,caseskase_virtual_machines4cost,caseskase_virtual_machines4created_at,caseskase_virtual_machines4l2_connection_required,caseskase_virtual_machines4metro_id,caseskase_virtual_machines4name,caseskase_virtual_machines4os_profile,caseskase_virtual_machines4primary_purpose,caseskase_virtual_machines4rollback_service_required,caseskase_virtual_machines4secondary_storage,caseskase_virtual_machines4updated_at,caseskase_virtual_machines4virtual_center_id,caseskase_virtual_machines4virtual_machine_id,casesdepartment_number,casesdmz_vm,casesmac_addresses_with_image_names1,casesalert_notification_alias,casescisco_routable_ip_required,casesconfiguration,casescost,casesicam_required,casesl2_connection_required,casesname,casesnew_virtual_machine_id,casesos_profile,casesprimary_storage,casesrollback_service_required,casessecondary_storage,casessecondary_storage_mount_point,caseshypervisor,caseshypervisor_ip_address,caseshypervisor_login,caseshypervisor_password,casesservice_requested,casesvm_administrative_password,casesvm_cpu,casesvm_hdd_size,casesvm_memory,casesvm_os,casesinterested_parties8,casespart_number,casesdns_name,casesexternal_access_required,casesexternal_customer_details,casesrack_details)"
+# mycursor = mydb.cursor()
+# count = 0
+# for case in case_data:
+#   for v in case.values():
+#     print(v)
+#   # if count < 5:
+#   #   mycursor.execute(sql, case.values()[count])
+#   #   count += 1
+#
+# # myresult = mycursor.fetchall()
+# #
+# # for x in myresult:
+# #   print(x)
